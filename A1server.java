@@ -17,7 +17,6 @@ public final class A1server {
 		while (true) {
 		    // Listen for a TCP connection request.
 		    Socket connection = socket.accept();
-		    
 		    System.out.println(connection.getInetAddress());
 		    OutputStream output = connection.getOutputStream();
 		    String hello = "hello";
@@ -36,32 +35,75 @@ public final class A1server {
 		    } else if (clientin.startsWith("ALL")){
 		    	out = getALL(clientin);
 		    } else if (isNumeric(clientin.replace(" ",""))== false){
-		    	
+		    	out = "Sorry Invalid input";
+		    	output.write(out.getBytes());
 		    } else {
-		    	
+		    	if ((clientin.split(" ").length % 2) == 1){
+		    		out = "Sorry Invalid input";
+			    	output.write(out.getBytes());
+		    	}else {
+		    		int[][] points = stringToPoints(clientin.split(" "));
+		    		out = pointsToShape(points);
+		    		output.write(out.getBytes());
+		    	}
 		    }
-		    
-		    
 		}
     }
-    public int[][]  stringToPoints(String[] points) {
-		return null;
-    	
+    public static int[][]  stringToPoints(String[] points) {
+    	int n = points.length;
+    	int[][] grid = new int[n/2][2];
+    	for (int i = 0; i < n/2; i++){
+    		grid[i][0] = Integer.parseInt(points[2*i]);
+    		grid[i][1] = Integer.parseInt(points[(2*i)+1]);
+    	}
+		return grid;
+    }
+    
+    public static String pointsToShape (int[][] points){
+    	int n = points.length;
+    	String out = "";
+    	if (n == 1){
+    		out = pointToString(points);
+    	} else if (n == 3){
+    		out = triToString(points);
+    	}
+    	else if (n == 4){
+    		out = quadToString(points);
+    	} else {
+    		out = "Sorry Invalid input";
+    	}
+    	return out;
+    }
+    
+    public static String pointToString (int[][] point){
+		String out = "Point at cordinates ("+ Integer.toString(point[0][0]) +","+Integer.toString(point[0][1])+")";
+		//write to dictionary
+    	return out;
+    }
+    
+    public static String triToString (int[][] points){
+		
+    	return null;
+    }
+    
+    public static String quadToString (int[][] points){
+		
+    	return null;
     }
 
-    public String getT (String in) {
+    public static String getT (String in) {
     	return in;
     }
     
-    public String getP (String in) {
+    public static String getP (String in) {
     	return in;
     }
     
-    public String getQ (String in) {
+    public static String getQ (String in) {
     	return in;
     }
     
-    public String getALL (String in) {
+    public static String getALL (String in) {
     	return in;
     }
     
@@ -69,7 +111,7 @@ public final class A1server {
     {  
       try  
       {  
-        double d = Double.parseDouble(str);  
+        int d = Integer.parseInt(str);  
       }  
       catch(NumberFormatException nfe)  
       {  
