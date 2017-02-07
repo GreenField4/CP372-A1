@@ -11,7 +11,7 @@ public class A1server {
 	static Dictionary<String, ArrayList<Shape>> dict= new Hashtable<String, ArrayList<Shape>>();
 	static String[] trianglesTypesList = new String[3];
 	static String[] quadTypesList = new String[7];
-	//	total count of shape type @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ POSSIBLY ENCAPSULATE
+	//	total count of shape type
 	static int quadCount = 0;
 	static int trianglesCount = 0;
 	static int pointsCount = 0;
@@ -302,8 +302,8 @@ public class A1server {
 			shapesList = dict.get("right");
 		}else if (inputSplit[1].equals("scalene")) {
 			shapesList = dict.get("scalene");
-		// }else if (inputSplit[1] == int(inputSplit[1])){ //@@@@@@@@@@@@@@@@@@@@@@@ MAY NOT WORK.
-		// 	return getTN(int(inputSplit[1]));
+		}else if (isNumeric(inputSplit[1])){
+			return getTN(Integer.parseInt((inputSplit[1])));
 		}else{
 			return null;
 		}
@@ -383,6 +383,8 @@ public class A1server {
 			shapesList = dict.get("trapezoid");
 		}else if (inputSplit[1].equals("quadrilateral")) {
 			shapesList = dict.get("quadrilateral");
+		}else if (isNumeric(inputSplit[1])){
+			return getQN(Integer.parseInt((inputSplit[1])));
 		}else{
 			return null;
 		}
