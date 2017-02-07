@@ -311,10 +311,9 @@ public class A1server {
 			int[][] temp = shapesList.get(i).getCoordinates();
 			out = out.concat("Shape "+i+": "+"("+temp[0][0]+","+temp[0][1]+") "
 			+"("+temp[1][0]+","+temp[1][1]+") "
-			+"("+temp[2][0]+","+temp[2][1]+")\n");
-			System.out.println(out);
+			+"("+temp[2][0]+","+temp[2][1]+"),  ");
 		}
-
+		out.concat("\n");
 		return out;
 	}
 
@@ -339,12 +338,12 @@ public class A1server {
 						int[][] temp = shapesList.get(i).getCoordinates();
 						out = out.concat("Shape "+i+": "+"("+temp[0][0]+","+temp[0][1]+") "
 						+"("+temp[1][0]+","+temp[1][1]+") "
-						+"("+temp[2][0]+","+temp[2][1]+")\n");
+						+"("+temp[2][0]+","+temp[2][1]+"),  ");
 					}
 				}
 			}
 		}
-
+		out.concat("\n");
 		return out;
 	}
 
@@ -356,9 +355,9 @@ public class A1server {
 			int[][] temp = shapesList.get(i).getCoordinates();
 			out = out.concat("Shape "+i+": "+"("+temp[0][0]+","+temp[0][1]+") "
 			+"("+temp[1][0]+","+temp[1][1]+") "
-			+"("+temp[2][0]+","+temp[2][1]+")\n");
+			+"("+temp[2][0]+","+temp[2][1]+"),  ");
 		}
-
+		out.concat("\n");
 		return out;
 	}
 
@@ -393,8 +392,9 @@ public class A1server {
 			out = out.concat("Shape "+i+": "+"("+temp[0][0]+","+temp[0][1]+") "
 			+"("+temp[1][0]+","+temp[1][1]+") "
 			+"("+temp[2][0]+","+temp[2][1]+") "
-			+"("+temp[3][0]+","+temp[3][1]+") \n");
+			+"("+temp[3][0]+","+temp[3][1]+"),  ");
 		}
+		out.concat("\n");
 		return out;
 	}
 
@@ -409,7 +409,7 @@ public class A1server {
 					out = out.concat("Shape "+i+": "+"("+temp[0][0]+","+temp[0][1]+") "
 					+"("+temp[1][0]+","+temp[1][1]+") "
 					+"("+temp[2][0]+","+temp[2][1]+") "
-					+"("+temp[3][0]+","+temp[3][1]+") \n");
+					+"("+temp[3][0]+","+temp[3][1]+"), ");
 				}
 			}
 		}
@@ -422,10 +422,11 @@ public class A1server {
 						out = out.concat("Shape "+i+": "+"("+temp[0][0]+","+temp[0][1]+") "
 						+"("+temp[1][0]+","+temp[1][1]+") "
 						+"("+temp[2][0]+","+temp[2][1]+") "
-						+"("+temp[3][0]+","+temp[3][1]+") \n");
+						+"("+temp[3][0]+","+temp[3][1]+"), ");
 					}
 				}
 			}
+		out.concat("\n")
 		return out;
 	}
 }
@@ -443,7 +444,7 @@ return out;
 			int[][] temp = shapesList.get(k).getCoordinates();
 			out = out.concat("Shape "+k+": "+"("+temp[0][0]+","+temp[0][1]+") "
 			+"("+temp[1][0]+","+temp[1][1]+") "
-			+"("+temp[2][0]+","+temp[2][1]+")\n");
+			+"("+temp[2][0]+","+temp[2][1]+"), ");
 			System.out.println(out);
 		}
 
@@ -453,7 +454,7 @@ return out;
 				int[][] temp = shapesList.get(i).getCoordinates();
 				out = out.concat("Shape "+i+": "+"("+temp[0][0]+","+temp[0][1]+") "
 				+"("+temp[1][0]+","+temp[1][1]+") "
-				+"("+temp[2][0]+","+temp[2][1]+")\n");
+				+"("+temp[2][0]+","+temp[2][1]+"), ");
 				System.out.println(out);
 			}
 		}
@@ -465,11 +466,11 @@ return out;
 				out = out.concat("Shape "+j+": "+"("+temp[0][0]+","+temp[0][1]+") "
 				+"("+temp[1][0]+","+temp[1][1]+") "
 				+"("+temp[2][0]+","+temp[2][1]+") "
-				+"("+temp[3][0]+","+temp[3][1]+") \n");
+				+"("+temp[3][0]+","+temp[3][1]+"), ");
 				System.out.println(out);
 			}
 		}
-
+		out.concat("\n");
 		return out;
 	}
 
