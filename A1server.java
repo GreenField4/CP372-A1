@@ -9,7 +9,8 @@ public class A1server {
 
 	//	declare dictionary - key: int (id of polygon), value: array of integers (for coordinates)
 	static Dictionary<String, ArrayList<Shape>> dict= new Hashtable<String, ArrayList<Shape>>();
-
+	static String[] trianglesTypesList = new String[3];
+	static String[] quadTypesList = new String[7];
 	//	total count of shape type @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ POSSIBLY ENCAPSULATE
 	static int quadCount = 0;
 	static int trianglesCount = 0;
@@ -301,6 +302,8 @@ public class A1server {
 			shapesList = dict.get("right");
 		}else if (inputSplit[1].equals("scalene")) {
 			shapesList = dict.get("scalene");
+		// }else if (inputSplit[1] == int(inputSplit[1])){ //@@@@@@@@@@@@@@@@@@@@@@@ MAY NOT WORK.
+		// 	return getTN(int(inputSplit[1]));
 		}else{
 			return null;
 		}
@@ -316,21 +319,156 @@ public class A1server {
 	}
 
 	public static String getTN (int in) {
+		ArrayList<Shape> shapesList;
 		String out = "";
-		return out;
+		if (in == 0) {
+			for (String key: trianglesTypesList) {
+				shapesList = dict.get(key);
+				for (int i=0;i<shapesList.size();i++) {
+					int[][] temp = shapesList.get(i).getCoordinates();
+					out = out.concat("Shape "+i+": "+"("+temp[0][0]+","+temp[0][1]+") "
+					+"("+temp[1][0]+","+temp[1][1]+") "
+					+"("+temp[2][0]+","+temp[2][1]+")\n");
+				}
+			}
+		} else if (in > 0) {
+			for (String key: trianglesTypesList) {
+				shapesList = dict.get(key);
+				if (shapesList.size() == in){
+					for (int i=0;i<shapesList.size();i++) {
+						int[][] temp = shapesList.get(i).getCoordinates();
+						out = out.concat("Shape "+i+": "+"("+temp[0][0]+","+temp[0][1]+") "
+						+"("+temp[1][0]+","+temp[1][1]+") "
+						+"("+temp[2][0]+","+temp[2][1]+")\n");
+					}
+				}
+			}
+		}
 
+		return out;
 	}
 
 	public static String getP (String in) {
-		return null;
+		String out = "";
+		ArrayList<Shape> shapesList = dict.get("point");
+
+		for (int i=0;i<shapesList.size();i++) {
+			int[][] temp = shapesList.get(i).getCoordinates();
+			out = out.concat("Shape "+i+": "+"("+temp[0][0]+","+temp[0][1]+") "
+			+"("+temp[1][0]+","+temp[1][1]+") "
+			+"("+temp[2][0]+","+temp[2][1]+")\n");
+		}
+
+		return out;
 	}
 
 	public static String getQ (String in) {
-		return null;
+		//	initialize String out
+		String out="";
+		//	initialize array of shapes
+		ArrayList<Shape> shapesList;
+		//	process the input (should be in format T, [type])
+		String[] inputSplit = in.toLowerCase().split(" ");
+		if (inputSplit[1].equals("square")) {
+			shapesList = dict.get("square");
+		}else if (inputSplit[1].equals("rhombus")) {
+			shapesList = dict.get("rhombus");
+		}else if (inputSplit[1].equals("rectangle")) {
+			shapesList = dict.get("rectangle");
+		}else if (inputSplit[1].equals("parallelogram")) {
+			shapesList = dict.get("parallelogram");
+		}else if (inputSplit[1].equals("kite")) {
+			shapesList = dict.get("kite");
+		}else if (inputSplit[1].equals("trapezoid")) {
+			shapesList = dict.get("trapezoid");
+		}else if (inputSplit[1].equals("quadrilateral")) {
+			shapesList = dict.get("quadrilateral");
+		}else{
+			return null;
+		}
+		for (int i=0;i<shapesList.size();i++) {
+			int[][] temp = shapesList.get(i).getCoordinates();
+			out = out.concat("Shape "+i+": "+"("+temp[0][0]+","+temp[0][1]+") "
+			+"("+temp[1][0]+","+temp[1][1]+") "
+			+"("+temp[2][0]+","+temp[2][1]+") "
+			+"("+temp[3][0]+","+temp[3][1]+") \n");
+		}
+		return out;
 	}
 
+	public static String getQN (int in) {
+		String out = "";
+		ArrayList<Shape> shapesList;
+		if (in == 0) {
+			for (String key: quadTypesList) {
+				shapesList = dict.get(key); {
+				for (int i=0;i<shapesList.size();i++) {
+					int[][] temp = shapesList.get(i).getCoordinates();
+					out = out.concat("Shape "+i+": "+"("+temp[0][0]+","+temp[0][1]+") "
+					+"("+temp[1][0]+","+temp[1][1]+") "
+					+"("+temp[2][0]+","+temp[2][1]+") "
+					+"("+temp[3][0]+","+temp[3][1]+") \n");
+				}
+			}
+		}
+	} else if (in > 0) {
+			for (String key: quadTypesList) {
+				shapesList = dict.get(key); {
+				if (shapesList.size() == in) {
+					for (int i=0;i<shapesList.size();i++) {
+						int[][] temp = shapesList.get(i).getCoordinates();
+						out = out.concat("Shape "+i+": "+"("+temp[0][0]+","+temp[0][1]+") "
+						+"("+temp[1][0]+","+temp[1][1]+") "
+						+"("+temp[2][0]+","+temp[2][1]+") "
+						+"("+temp[3][0]+","+temp[3][1]+") \n");
+					}
+				}
+			}
+		return out;
+	}
+}
+return out;
+}
+
+
 	public static String getALL (String in) {
-		return null;
+		String out = "";
+		ArrayList<Shape> shapesList;
+
+		shapesList = dict.get("point");
+
+		for (int k=0;k<shapesList.size();k++) {
+			int[][] temp = shapesList.get(k).getCoordinates();
+			out = out.concat("Shape "+k+": "+"("+temp[0][0]+","+temp[0][1]+") "
+			+"("+temp[1][0]+","+temp[1][1]+") "
+			+"("+temp[2][0]+","+temp[2][1]+")\n");
+			System.out.println(out);
+		}
+
+		for (String key: trianglesTypesList) {
+			shapesList = dict.get(key);
+			for (int i=0;i<shapesList.size();i++) {
+				int[][] temp = shapesList.get(i).getCoordinates();
+				out = out.concat("Shape "+i+": "+"("+temp[0][0]+","+temp[0][1]+") "
+				+"("+temp[1][0]+","+temp[1][1]+") "
+				+"("+temp[2][0]+","+temp[2][1]+")\n");
+				System.out.println(out);
+			}
+		}
+
+		for (String key: quadTypesList) {
+			shapesList = dict.get(key);
+			for (int j=0;j<shapesList.size();j++) {
+				int[][] temp = shapesList.get(j).getCoordinates();
+				out = out.concat("Shape "+j+": "+"("+temp[0][0]+","+temp[0][1]+") "
+				+"("+temp[1][0]+","+temp[1][1]+") "
+				+"("+temp[2][0]+","+temp[2][1]+") "
+				+"("+temp[3][0]+","+temp[3][1]+") \n");
+				System.out.println(out);
+			}
+		}
+
+		return out;
 	}
 
 	public static boolean isNumeric(String str){
