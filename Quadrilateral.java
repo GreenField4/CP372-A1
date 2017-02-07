@@ -9,6 +9,8 @@ public class Quadrilateral extends Shape {
       }
     }
   }
-
+    public int[][] getCoordinates() {
+      return this.points;
+    }
 
 }

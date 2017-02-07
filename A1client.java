@@ -1,12 +1,20 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class A1client {
   final static boolean shouldFill = true;
   final static boolean shouldWeightX = true;
   final static boolean RIGHT_TO_LEFT = false;
-
+  static Socket Socket1 = null;
+  static PrintWriter out = null;
+  static BufferedReader in = null;
   public static void createInputFrame() {
     JFrame frame = new JFrame();
     Object result = JOptionPane.showInputDialog(frame, "Enter printer name:");
@@ -125,6 +133,8 @@ public class A1client {
     JTextArea outputArea = new JTextArea(10,20);
     if (shouldWeightX) {
       c.weightx = 0.5;
+      outputArea.setLineWrap(true);
+      outputArea.setWrapStyleWord(true);
     }
     c.fill = GridBagConstraints.HORIZONTAL;
     c.gridx = 0;
@@ -138,38 +148,73 @@ public class A1client {
     //action listeners
     connectButton.addActionListener( new ActionListener()
     {
-        public void connectPerformed(ActionEvent e)
+        public void actionPerformed(ActionEvent e)
         {
             // Create a method named "createFrame()", and set up an new frame there
             // Call createFrame()
+        	String serverIp = IPTextField.getText();
+        	int serverPort = Integer.parseInt(portTextField.getText());
+        	try {
+        		Socket1 = new Socket(serverIp, serverPort);
+                out = new PrintWriter(Socket1.getOutputStream(), true);
+                in = new BufferedReader(new InputStreamReader(Socket1.getInputStream()));
+            } catch (UnknownHostException e1) {
+                System.err.println("Don't know about host: taranis.");
+                System.exit(1);
+            } catch (IOException e1) {
+                System.err.println("Couldn't get I/O for the connection to: taranis.");
+                System.exit(1);
+            }
+
         }
     });
 
     disconnectButton.addActionListener( new ActionListener()
     {
-        public void disconnectPerformed(ActionEvent e)
+        public void actionPerformed(ActionEvent e)
         {
             // Create a method named "createFrame()", and set up an new frame there
             // Call createFrame()
+        	try {
+				Socket1.close();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
         }
     });
 
     postButton.addActionListener( new ActionListener()
     {
-        public void addPerformed(ActionEvent e)
+        public void actionPerformed(ActionEvent e)
         {
             // Create a method named "createFrame()", and set up an new frame there
             // Call createFrame()
+        	String clientPost = postArea.getText();
+        	out.println(clientPost);
+        	try{
+        		String answer = in.readLine();
+        		outputArea.setText(answer);
+        	} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+        	}
         }
     });
 
     getButton.addActionListener( new ActionListener()
     {
-        public void getPerformed(ActionEvent e)
+        public void actionPerformed(ActionEvent e)
         {
-            // Create a method named "createFrame()", and set up an new frame there
-            // Call createFrame()
-            createInputFrame();
+        	String clientPost = postArea.getText();
+        	out.println(clientPost);
+        	try{
+        		String answer = in.readLine();
+        		outputArea.setText(answer);
+        	} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+        	}
         }
     });
   }

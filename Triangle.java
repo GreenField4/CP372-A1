@@ -9,4 +9,9 @@ public class Triangle extends Shape{
       }
     }
   }
+
+  public int[][] getCoordinates() {
+    return this.points;
+  }
+
 }

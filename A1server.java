@@ -44,62 +44,13 @@ public class A1server {
 		try {
 			while (true){
 				new HelperClient(socket.accept(),numClient++).start();
-			} 
+			}
 		} catch(Exception e){
-			
+
 		}
-		// Dictionary<String, int[][]> type = new Hashtable<String, int[][]>();
-		// Dictionary<String, int[][]> point = new Hashtable<String, int[][]>();
+
 		String out = "";
 		String newline = "\n";
-		// Process HTTP service requests in an infinite loop.
-/**
-		while (true) {
-			// Listen for a TCP connection request.
-			Socket connection = socket.accept();
-			System.out.println(connection.getInetAddress());
-			OutputStream output = connection.getOutputStream();
-			InputStream input = connection.getInputStream();
-			BufferedReader in = new BufferedReader(new InputStreamReader(input));
-
-			//	process client input
-			while (true) {
-				String clientin = in.readLine();
-				System.out.println(clientin);
-				clientin = clientin.trim();
-
-				//	if triangle
-				if (clientin.startsWith("T")) {
-					out = getT(clientin);
-					//	if quadrilateral
-				} else if (clientin.startsWith("Q")) {
-					out = getQ(clientin);
-					//	if point
-				} else if (clientin.startsWith("P")) {
-					out = getP(clientin);
-					// if mixed (triangle and quadrilateral)
-				} else if (clientin.startsWith("ALL")){
-					out = getALL(clientin);
-					// invalid input catch
-				} else if (isNumeric(clientin.replace(" ",""))== false){
-					out = "Sorry Invalid input\n";
-					output.write(out.getBytes());
-					//	invalid input catch
-				} else {
-					if ((clientin.split(" ").length % 2) == 1){
-						out = "Sorry Invalid input\n";
-						output.write(out.getBytes());
-						output.write(newline.getBytes());
-					}else {
-						int[][] points = stringToPoints(clientin.split(" "));
-						out = pointsToShape(points);
-						output.write(out.getBytes());
-						output.write(newline.getBytes());
-					}
-				}
-			}
-		}
-		**/
 	}
 
 
@@ -119,6 +70,7 @@ public class A1server {
 		if (n == 1){
 			out = pointToString(points);
 		} else if (n == 3){
+			System.out.println("TRIANGLE");
 			out = triToString(points);
 		}
 		else if (n == 4){
@@ -174,9 +126,11 @@ public class A1server {
 					// write to both isosceles and right angled, create new variables and increment
 					temp = dict.get("isosceles");
 					temp.add(new Triangle(points));
+					dict.put("isosceles", temp);
 
 					temp = dict.get("right");
 					temp.add(new Triangle(points));
+					dict.put("right", temp);
 
 					trianglesCount++;
 					isoRightCount++;
@@ -189,6 +143,7 @@ public class A1server {
 
 					temp = dict.get("isosceles");
 					temp.add(new Triangle(points));
+					dict.put("isosceles", temp);
 					trianglesCount++;
 				}
 			} else if ((Math.pow(s0,2) + Math.pow(s1,2) -  Math.pow(s2,2) <= 0.01)|| (Math.pow(s1,2) + Math.pow(s2,2) - Math.pow(s0,2) <= 0.01) ||
@@ -199,6 +154,7 @@ public class A1server {
 				//write to dictionary
 				temp = dict.get("right");
 				temp.add(new Triangle(points));
+				dict.put("right", temp);
 				trianglesCount++;
 			} else {
 				out = "Scalene Triangle with coordinates ("+ Integer.toString(points[0][0]) +","+Integer.toString(points[0][1])+"), ("
@@ -207,6 +163,7 @@ public class A1server {
 				//write to dictionary
 				temp = dict.get("scalene");
 				temp.add(new Triangle(points));
+				dict.put("scalene", temp);
 				trianglesCount++;
 			}
 		}
@@ -236,6 +193,7 @@ public class A1server {
 					//write to dictionary
 					temp = dict.get("square");
 					temp.add(new Quadrilateral(points));
+					dict.put("square", temp);
 					quadCount++;
 				} else {
 					out = "Rhombus with coordinates ("+ Integer.toString(points[0][0]) +","+Integer.toString(points[0][1])+"), ("
@@ -245,6 +203,7 @@ public class A1server {
 					//write to dictionary
 					temp = dict.get("Rhombus");
 					temp.add(new Quadrilateral(points));
+					dict.put("rhombus", temp);
 					quadCount++;
 				}
 			} else if (s0 == s2 && s1 == s3){
@@ -256,6 +215,7 @@ public class A1server {
 					//write to dictionary
 					temp = dict.get("rectangle");
 					temp.add(new Quadrilateral(points));
+					dict.put("rectangle", temp);
 					quadCount++;
 				} else {
 					out = "Parallelogram with coordinates ("+ Integer.toString(points[0][0]) +","+Integer.toString(points[0][1])+"), ("
@@ -265,6 +225,7 @@ public class A1server {
 					//write to dictionary
 					temp = dict.get("parallelogram");
 					temp.add(new Quadrilateral(points));
+					dict.put("parallelogram", temp);
 					quadCount++;
 				}
 			} else if (s0 == s1 && s2 == s3){
@@ -275,6 +236,7 @@ public class A1server {
 				//write to dictionary
 				temp = dict.get("kite");
 				temp.add(new Quadrilateral(points));
+				dict.put("kite", temp);
 				quadCount++;
 			}else if (Arrays.equals(vectors[0],vectors[2]) || Arrays.equals(vectors[1],vectors[3])){
 				out = "Trapezoid with coordinates ("+ Integer.toString(points[0][0]) +","+Integer.toString(points[0][1])+"), ("
@@ -284,6 +246,7 @@ public class A1server {
 				//write to dictionarys
 				temp = dict.get("trapezoid");
 				temp.add(new Quadrilateral(points));
+				dict.put("trapezoid", temp);
 				quadCount++;
 			} else {
 				out = "Quadrilateral with coordinates ("+ Integer.toString(points[0][0]) +","+Integer.toString(points[0][1])+"), ("
@@ -293,6 +256,7 @@ public class A1server {
 				//write to dictionary
 				temp = dict.get("quadrilateral");
 				temp.add(new Quadrilateral(points));
+				dict.put("quadrilateral", temp);
 				quadCount++;
 			}
 		}
@@ -325,11 +289,30 @@ public class A1server {
 	}
 
 	public static String getT (String in) {
-		String out = "";
-		if (isNumeric(in.split(" ")[1]) == true){
-			out = getTN(Integer.parseInt(in.split(" ")[1]));
+		//	initialize String out
+		String out="";
+		//	initialize array of shapes
+		ArrayList<Shape> shapesList;
+		//	process the input (should be in format T, [type])
+		String[] inputSplit = in.toLowerCase().split(" ");
+		if (inputSplit[1].equals("isosceles")) {
+			shapesList = dict.get("isosceles");
+		}else if (inputSplit[1].equals("right")) {
+			shapesList = dict.get("right");
+		}else if (inputSplit[1].equals("scalene")) {
+			shapesList = dict.get("scalene");
+		}else{
+			return null;
 		}
-		return null;
+		for (int i=0;i<shapesList.size();i++) {
+			int[][] temp = shapesList.get(i).getCoordinates();
+			out = out.concat("Shape "+i+": "+"("+temp[0][0]+","+temp[0][1]+") "
+			+"("+temp[1][0]+","+temp[1][1]+") "
+			+"("+temp[2][0]+","+temp[2][1]+")\n");
+			System.out.println(out);
+		}
+
+		return out;
 	}
 
 	public static String getTN (int in) {
@@ -386,7 +369,7 @@ public class A1server {
 			while (true) {
 				// Listen for a TCP connection request.
 				//	process client input
-				
+
 				while (true) {
 					String clientin = in.readLine();
 					System.out.println(clientin);
@@ -422,11 +405,11 @@ public class A1server {
 						}
 					}
 				}
-			} 
+			}
 			} catch (Exception e){
-				
+
 			}
 		}
 	}
-		
+
 }

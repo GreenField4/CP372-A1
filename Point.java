@@ -7,4 +7,8 @@ public class Point extends Shape{
     this.point[0][1] = coordinates[0][1];
   }
 
+  public int[][] getCoordinates() {
+    return this.point;
+  }
+
 }
