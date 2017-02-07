@@ -135,6 +135,7 @@ public class A1client {
       c.weightx = 0.5;
       outputArea.setLineWrap(true);
       outputArea.setWrapStyleWord(true);
+      outputArea.setEditable(false);
     }
     c.fill = GridBagConstraints.HORIZONTAL;
     c.gridx = 0;
@@ -159,13 +160,13 @@ public class A1client {
                 out = new PrintWriter(Socket1.getOutputStream(), true);
                 in = new BufferedReader(new InputStreamReader(Socket1.getInputStream()));
             } catch (UnknownHostException e1) {
-                System.err.println("Don't know about host: taranis.");
+                System.err.println("cant connect");
                 System.exit(1);
             } catch (IOException e1) {
-                System.err.println("Couldn't get I/O for the connection to: taranis.");
+                System.err.println("cant connect");
                 System.exit(1);
             }
-
+        	
         }
     });
 
